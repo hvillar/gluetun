@@ -105,16 +105,15 @@ func extractRemote(line string) (ip net.IP, port uint16,
 	}
 
 	host := fields[1]
-	host_addresses, err := net.LookupHost(host)
+	hostAddresses, err := net.LookupHost(host)
     if err == nil {
-        for _, addr := range(host_addresses) {
+        for _, addr := range(hostAddresses) {
 			ip = net.ParseIP(addr)
 			if ip == nil {
 				return nil, 0, "", fmt.Errorf("%w: %s", errHostNotIP, host)
 			}
-			break
         }
-    }else{
+    } else {
 		ip = net.ParseIP(host)
 		if ip == nil {
 			return nil, 0, "", fmt.Errorf("%w: %s", errHostNotIP, host)
