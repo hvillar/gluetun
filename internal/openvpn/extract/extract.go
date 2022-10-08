@@ -105,11 +105,20 @@ func extractRemote(line string) (ip net.IP, port uint16,
 	}
 
 	host := fields[1]
-	ip = net.ParseIP(host)
-	if ip == nil {
-		return nil, 0, "", fmt.Errorf("%w: %s", errHostNotIP, host)
-		// TODO resolve hostname once there is an option to allow it through
-		// the firewall before the VPN is up.
+	host_addresses, err := net.LookupHost(host)
+    if err == nil {
+        for _, addr := range(host_addresses) {
+			ip = net.ParseIP(addr)
+			if ip == nil {
+				return nil, 0, "", fmt.Errorf("%w: %s", errHostNotIP, host)
+			}
+			break
+        }
+    }else{
+		ip = net.ParseIP(host)
+		if ip == nil {
+			return nil, 0, "", fmt.Errorf("%w: %s", errHostNotIP, host)
+		}
 	}
 
 	if n > 2 { //nolint:gomnd

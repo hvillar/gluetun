@@ -157,17 +157,17 @@ func _main(ctx context.Context, buildInfo models.BuildInformation,
 		return err
 	}
 	splashSettings := gosplash.Settings{
-		User:         "qdm12",
+		User:         "hvillar",
 		Repository:   "gluetun",
-		Emails:       []string{"quentin.mcgaw@gmail.com"},
+		Emails:       []string{""},
 		Version:      buildInfo.Version,
 		Commit:       buildInfo.Commit,
 		BuildDate:    buildInfo.Created,
 		Announcement: "Large settings parsing refactoring merged on 2022-01-06, please report any issue!",
 		AnnounceExp:  announcementExp,
 		// Sponsor information
-		PaypalUser:    "qmcgaw",
-		GithubSponsor: "qdm12",
+		PaypalUser:    "",
+		GithubSponsor: "",
 	}
 	for _, line := range gosplash.MakeLines(splashSettings) {
 		fmt.Println(line)
